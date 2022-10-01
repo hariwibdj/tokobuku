@@ -65,7 +65,8 @@ class BukuController extends Controller
      */
     public function show($id)
     {
-        //
+        $buku = Buku::find($id);
+        return view('buku.detailbuku', compact('buku'));
     }
 
     /**
@@ -76,7 +77,8 @@ class BukuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $buku = Buku::find($id);
+        return view('buku.editbuku', compact('buku'));
     }
 
     /**
@@ -86,9 +88,28 @@ class BukuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Buku $buku)
     {
-        //
+        $request->validate([
+            'judul' => 'required',
+            'harga' => 'required'
+        ]);
+
+        $input = $request->all();
+
+        if ($thumbnail = $request->file('thumbnail')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $thumbnail->getClientOriginalExtension();
+            $thumbnail->move($destinationPath, $profileImage);
+            $input['thumbnail'] = "$profileImage";
+        } else {
+            unset($input['thumbnail']);
+        }
+
+        $buku->update($input);
+
+        return redirect()->route('buku.index')
+             ->with('success', 'Product updated successfully');
     }
 
     /**
@@ -97,8 +118,11 @@ class BukuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Buku $buku)
     {
-        //
+        $buku->delete();
+
+        return redirect()->route('buku.index')
+            ->with('success', 'Buku deleted successfully');
     }
 }

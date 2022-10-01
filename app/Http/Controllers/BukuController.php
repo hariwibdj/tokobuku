@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Buku;
 
 class BukuController extends Controller
 {
@@ -13,7 +14,8 @@ class BukuController extends Controller
      */
     public function index()
     {
-        //
+        $buku = Buku::orderBy('id','desc');
+        return view('buku.listbuku', compact('buku'));
     }
 
     /**
@@ -23,7 +25,7 @@ class BukuController extends Controller
      */
     public function create()
     {
-        //
+        return view('buku.createbuku');
     }
 
     /**

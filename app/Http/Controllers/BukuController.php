@@ -15,7 +15,7 @@ class BukuController extends Controller
     public function index()
     {
         $buku = Buku::all();
-        return view('buku.listbuku', compact('buku'));
+        return view('buku.catalog', compact('buku'));
     }
 
     /**
@@ -54,7 +54,7 @@ class BukuController extends Controller
         Buku::create($input);
 
         return redirect()->route('buku.index')
-            ->with('success', 'Product created successfully.');
+            ->with('success', 'Buku created successfully.');
     }
 
     /**
@@ -111,7 +111,7 @@ class BukuController extends Controller
         $buku->update($input);
 
         return redirect()->route('buku.index')
-             ->with('success', 'Product updated successfully');
+             ->with('success', 'Buku updated successfully');
     }
 
     /**

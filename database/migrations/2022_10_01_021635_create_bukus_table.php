@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('judul');
             $table->string('thumbnail');
-            $table->int('harga');
+            $table->integer('harga');
             $table->timestamps();
         });
     }

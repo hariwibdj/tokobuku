@@ -14,7 +14,7 @@ class BukuController extends Controller
      */
     public function index()
     {
-        $buku = Buku::orderBy('id','desc');
+        $buku = Buku::all();
         return view('buku.listbuku', compact('buku'));
     }
 
@@ -36,7 +36,25 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'judul' => 'required',
+            'harga' => 'required',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+
+        $input = $request->all();
+
+        if ($thumbnail = $request->file('thumbnail')) {
+            $destinationPath = 'images/';
+            $profileImage = date('YmdHis') . "." . $thumbnail->getClientOriginalExtension();
+            $thumbnail->move($destinationPath, $profileImage);
+            $input['thumbnail'] = "$profileImage";
+        }
+
+        Buku::create($input);
+
+        return redirect()->route('buku.index');
+            // ->with('success', 'Product created successfully.');
     }
 
     /**

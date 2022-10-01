@@ -32,18 +32,25 @@
         <tbody>
             @foreach ($buku as $bk)
                 <tr>
+                    <td></td>
                     <td>{{ $bk->id }}</td>
                     <td>{{ $bk->judul }}</td>
                     <td>{{ $bk->harga }}</td>
-                    <td>{{ $bk->thumbnail }}</td>
+                    <td> <img src="/images/{{$bk->thumbnail }}" width="200px"></td>
                     <td>
-                        {{-- <form action="{{ route('companies.destroy',$company->id) }}" method="Post">
-                            <a class="btn btn-primary" href="{{ route('companies.edit',$company->id) }}">Edit</a>
+                        <form action="{{ route('buku.destroy', $bk->id) }}" method="POST">
+
+                            <a class="btn btn-info" href="{{ route('buku.show', $bk->id) }}">Show</a>
+    
+                            <a class="btn btn-primary" href="{{ route('buku.edit', $bk->id) }}">Edit</a>
+    
                             @csrf
                             @method('DELETE')
+    
                             <button type="submit" class="btn btn-danger">Delete</button>
-                        </form> --}}
+                        </form>
                     </td>
+
                 </tr>
                 @endforeach
         </tbody>

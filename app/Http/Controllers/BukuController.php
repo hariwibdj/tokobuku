@@ -53,8 +53,8 @@ class BukuController extends Controller
 
         Buku::create($input);
 
-        return redirect()->route('buku.index');
-            // ->with('success', 'Product created successfully.');
+        return redirect()->route('buku.index')
+            ->with('success', 'Product created successfully.');
     }
 
     /**

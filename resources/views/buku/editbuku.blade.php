@@ -33,7 +33,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Judul:</strong>
-                    <input type="text" name="name" value="{{ $buku->judul }}" class="form-control" placeholder="Name">
+                    <input type="text" name="judul" value="{{ $buku->judul }}" class="form-control" placeholder="Name">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
@@ -45,7 +45,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Image:</strong>
-                    <input type="file" name="image" class="form-control" placeholder="thumbnail">
+                    <input type="file" name="thumbnail" class="form-control" placeholder="thumbnail">
                     <br>
                     <img src="/images/{{ $buku->thumbnail }}" width="100px">
                 </div>

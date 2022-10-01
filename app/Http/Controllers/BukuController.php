@@ -90,6 +90,7 @@ class BukuController extends Controller
      */
     public function update(Request $request, Buku $buku)
     {
+        // dd($request);
         $request->validate([
             'judul' => 'required',
             'harga' => 'required'
@@ -97,7 +98,7 @@ class BukuController extends Controller
 
         $input = $request->all();
 
-        if ($thumbnail = $request->file('thumbnail')) {
+       if ($thumbnail = $request->file('thumbnail')) {
             $destinationPath = 'images/';
             $profileImage = date('YmdHis') . "." . $thumbnail->getClientOriginalExtension();
             $thumbnail->move($destinationPath, $profileImage);
@@ -106,6 +107,7 @@ class BukuController extends Controller
             unset($input['thumbnail']);
         }
 
+        // $buku->save();
         $buku->update($input);
 
         return redirect()->route('buku.index')

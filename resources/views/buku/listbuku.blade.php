@@ -30,9 +30,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($buku as $bk)
+            
+                
+            <?php $i =0;?>
+            @foreach ($buku  as $bk)
                 <tr>
-                    <td></td>
+                    <td>{{ ++$i  }} </td>
                     <td>{{ $bk->id }}</td>
                     <td>{{ $bk->judul }}</td>
                     <td>{{ $bk->harga }}</td>

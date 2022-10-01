@@ -14,7 +14,12 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    {{-- {{ __('You are logged in!') }} --}}
+                  
+                    <a href="{{ route('buku.index') }}">Daftar Buku</a>
+
+                    {{-- @extends('buku.index') --}}
+                        
                 </div>
             </div>
         </div>

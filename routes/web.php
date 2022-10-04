@@ -24,3 +24,9 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 // Route::resource('/buku',BukuController::class);
 Route::resource('buku', BukuController::class);
+
+
+Route::controller(XenditController::class)->group(function () {
+    Route::post('/xendit-callback', 'XenditCallback');
+    Route::post('/xendit-callback-ewallets', 'XenditCallbackEwallet');
+});

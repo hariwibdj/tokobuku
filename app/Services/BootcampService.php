@@ -24,9 +24,9 @@ class BootcampService
         return $this->bootcampRepository->list();
     }
 
-    public function detail($memberID, $bootcampID)
+    public function detail($memberID, $bukuID)
     {
-        $memberTransaction = $this->transactionRepository->memberTransaction($memberID, $bootcampID);
+        $memberTransaction = $this->transactionRepository->memberTransaction($memberID, $bukuID);
 
         if ($memberTransaction && $memberTransaction->status != MemberTransaction::PAYMENT_STATUS_EXPIRED) {
             return [
@@ -34,13 +34,13 @@ class BootcampService
                 'memberTransaction' => $memberTransaction
             ];
         }
-        $bootcamp = $this->bootcampRepository->detail($bootcampID);
+        $buku = $this->bootcampRepository->detail($bukuID);
 
-        $bootcamp->ppn = 0.11 * $bootcamp->price;
-        $bootcamp->total = $bootcamp->ppn + $bootcamp->price;
+        $buku->ppn = 0.11 * $buku->harga;
+        $buku->total = $buku->ppn + $buku->harga;
         return [
             'checkkout' => false,
-            'bootcamp' => $bootcamp
+            'buku' => $buku
         ];
     }
 }

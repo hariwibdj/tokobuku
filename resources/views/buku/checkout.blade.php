@@ -17,12 +17,12 @@
                 <div class="course-card-responsive">
                     <div class="d-flex align-items-center align-items-md-start flex-row flex-md-column gap-md-4">
 
-                        <img src="{{ asset('img/' . $buku->thumbnail) }}" class="thumbnail-course"
+                        <img src="{{ asset('images/' . $buku->thumbnail) }}" class="thumbnail-course"
                             alt="Intensive Bootcamp Web Development dengan Laravel" />
 
                         <div class="course-detail">
                             <a href="#" class="course-name line-clamp">
-                                {{ $buku->title }}
+                                {{ $buku->judul }}
                             </a>
 
 

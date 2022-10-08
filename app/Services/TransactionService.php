@@ -26,44 +26,44 @@ class TransactionService
         Xendit::setApiKey(env('XENDIT_API_KEY'));
     }
 
-    public function create($member, $bootcampID, $data)
+    public function create($member, $bukuID, $data)
     {
 
         // check status if member already checkout this bootcamp
-        $memberStatus = $this->transactionRepository->memberTransaction($member->id, $bootcampID);
+        $memberStatus = $this->transactionRepository->memberTransaction($member->id, $bukuID);
         if ($memberStatus == MemberTransaction::PAYMENT_STATUS_PENDING) {
             return to_route('detail', $memberStatus->transaction_id);
         }
 
         if ($memberStatus == MemberTransaction::PAYMENT_STATUS_ACCEPT) {
-            return to_route('bootcamps')->with('danger', 'Kamu sudah membeli bootcamp ini');
+            return to_route('buku')->with('danger', 'Kamu sudah membeli buku ini');
         }
 
         // validate bootcamp
-        $bootcamp = $this->bootcampRepository->detail($bootcampID);
-        if (!$bootcamp) {
-            return redirect()->back()->with('danger', 'Bootcamp tidak ditemukan');
+        $buku = $this->bootcampRepository->detail($bukuID);
+        if (!$buku) {
+            return redirect()->back()->with('danger', 'buku tidak ditemukan');
         }
 
-        $finalPrice = (0.11 * $bootcamp->price) + $bootcamp->price;
+        $finalPrice = (0.11 * $buku->harga) + $buku->harga;
 
         $transactionExp = date('Y-m-d H:i:s', strtotime("1 days"));
 
-        $bootcamp->payment_channel = $data['payment_channel'];
-        $bootcamp->transaction_id = Str::uuid();
-        $bootcamp->member_id = $member->id;
-        $bootcamp->bootcamp_id = $bootcampID;
-        $bootcamp->final_price = $finalPrice;
-        $bootcamp->transaction_exp = $transactionExp;
+        $buku->payment_channel = $data['payment_channel'];
+        $buku->transaction_id = Str::uuid();
+        $buku->member_id = $member->id;
+        $buku->buku_id = $bukuID;
+        $buku->final_price = $finalPrice;
+        $buku->transaction_exp = $transactionExp;
 
         try {
             DB::beginTransaction();
-            $memberTransaction = $this->transactionRepository->create($bootcamp);
+            $memberTransaction = $this->transactionRepository->create($buku);
 
             // create invoice xendit
-            if ($bootcamp->payment_channel == MemberTransaction::PAYMENT_CHANNEL_BANK) {
+            if ($buku->payment_channel == MemberTransaction::PAYMENT_CHANNEL_BANK) {
 
-                $desc = 'Checkout Bootcamp' . ucfirst($bootcamp->title);
+                $desc = 'Checkout buku' . ucfirst($buku->title);
                 $description = preg_replace('/\s+/', ' ', $desc);
                 $params = [
                     'external_id' => $memberTransaction->transaction_id, //string
@@ -72,7 +72,7 @@ class TransactionService
                     'amount' => $memberTransaction->final_price,
                     'should_send_email' => false,
                     // 'invoice_duration' => 60,
-                    'success_redirect_url' => env('APP_URL') . '/bootcamp/transaction/' . $memberTransaction->transaction_id,
+                    'success_redirect_url' => env('APP_URL') . '/buku/transaction/' . $memberTransaction->transaction_id,
                 ];
 
                 $createInvoice = \Xendit\Invoice::create($params);
@@ -82,21 +82,21 @@ class TransactionService
                 $memberTransaction->transaction_exp = date('Y-m-d H:i:s', strtotime("1 days"));
             }
 
-            if ($bootcamp->payment_channel == MemberTransaction::PAYMENT_CHANNEL_OVO) {
+            if ($buku->payment_channel == MemberTransaction::PAYMENT_CHANNEL_OVO) {
                 $phone = $data['phone'];
                 $memberTransaction->transaction_exp = date('Y-m-d H:i:s', strtotime("+55 seconds"));
                 $channelCode = 'ID_OVO';
                 $this->paymentEwallet($memberTransaction, $phone, $channelCode);
             }
 
-            if ($bootcamp->payment_channel == MemberTransaction::PAYMENT_CHANNEL_DANA) {
+            if ($buku->payment_channel == MemberTransaction::PAYMENT_CHANNEL_DANA) {
                 $phone = $data['phone'];
                 $memberTransaction->transaction_exp = date('Y-m-d H:i:s', strtotime("+30 minutes"));
                 $channelCode = 'ID_DANA';
                 $this->paymentEwallet($memberTransaction, $phone, $channelCode);
             }
 
-            if ($bootcamp->payment_channel == MemberTransaction::PAYMENT_CHANNEL_LINKAJA) {
+            if ($buku->payment_channel == MemberTransaction::PAYMENT_CHANNEL_LINKAJA) {
                 $phone = $data['phone'];
                 $memberTransaction->transaction_exp = date('Y-m-d H:i:s', strtotime("+30 minutes"));
                 $channelCode = 'ID_LINKAJA';
@@ -110,7 +110,7 @@ class TransactionService
             DB::rollBack();
             Log::info('transaction');
             Log::error($th);
-            return to_route('bootcamps');
+            return to_route('bukus');
         }
     }
 
@@ -125,7 +125,7 @@ class TransactionService
             'channel_code' => $channelCode,
             'channel_properties' => [
                 'mobile_number' => '+628' . $phone,
-                'success_redirect_url' => env('APP_URL') . '/bootcamp/transaction/' . $memberTransaction->transaction_id,
+                'success_redirect_url' => env('APP_URL') . '/buku/transaction/' . $memberTransaction->transaction_id,
             ]
         ];
 

@@ -64,7 +64,7 @@ class HomeController extends Controller
         if (!$memberTransaction) {
             return to_route('bukus');
         }
-        return view('detail', ['memberTransaction' => $memberTransaction]);
+        return view('buku.detailbuku', ['memberTransaction' => $memberTransaction]);
     }
 
 

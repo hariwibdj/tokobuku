@@ -30,10 +30,10 @@
             </tr>
         </thead>
         <tbody>
-            
-                
+
+
             <?php $i =0;?>
-            @foreach ($buku  as $bk)
+            @foreach ($bukus  as $bk)
                 <tr>
                     <td>{{ ++$i  }} </td>
                     <td>{{ $bk->id }}</td>
@@ -44,12 +44,12 @@
                         <form action="{{ route('buku.destroy', $bk->id) }}" method="POST">
 
                             <a class="btn btn-info" href="{{ route('buku.show', $bk->id) }}">Show</a>
-    
+
                             <a class="btn btn-primary" href="{{ route('buku.edit', $bk->id) }}">Edit</a>
-    
+
                             @csrf
                             @method('DELETE')
-    
+
                             <button type="submit" class="btn btn-danger">Delete</button>
                         </form>
                     </td>

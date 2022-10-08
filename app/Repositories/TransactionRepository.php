@@ -9,12 +9,12 @@ use Illuminate\Support\Str;
 class TransactionRepository
 {
 
-    public function memberTransaction($memberID, $bootcampID)
+    public function memberTransaction($memberID, $bukuID)
     {
 
         return MemberTransaction::with('xendit')->where([
             'member_id' => $memberID,
-            'bootcamp_id' => $bootcampID
+            'buku_id' => $bukuID
         ])
             ->first();
     }
@@ -39,7 +39,7 @@ class TransactionRepository
         $transaction->transaction_id = $data['transaction_id'];
         $transaction->payment_channel = $data['payment_channel'];
         $transaction->member_id = $data['member_id'];
-        $transaction->bootcamp_id = $data['bootcamp_id'];
+        $transaction->buku_id = $data['buku_id'];
         $transaction->price = $data['price'];
         $transaction->final_price = $data['final_price'];
         $transaction->status = MemberTransaction::PAYMENT_STATUS_PENDING;

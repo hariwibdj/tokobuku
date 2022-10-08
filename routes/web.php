@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BukuController;
+use App\Http\Controllers\HomeController;
 
 
 /*
@@ -21,9 +22,20 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::controller(HomeController::class)->prefix('buku')->group(function () {
+    Route::get('/', 'index')->name('bukus');
+    Route::get('/{bukuID}', 'checkout')->name('checkout');
+    Route::post('/{bukuID}', 'actCheckout')->name('actCheckout');
+    Route::get('/transaction/{bootcampTransactionID}', 'detail')->name('detail');
+});
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+
 // Route::resource('/buku',BukuController::class);
-Route::resource('buku', BukuController::class);
+//Route::resource('/buku', [BukuController::class,'index']);
 
 
 Route::controller(XenditController::class)->group(function () {

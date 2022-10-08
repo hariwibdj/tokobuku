@@ -15,11 +15,11 @@
                     @endif
 
                     {{-- {{ __('You are logged in!') }} --}}
-                  
-                    <a href="{{ route('buku.index') }}">Daftar Buku</a>
+
+                    {{-- <a href="{{ route('buku.catalog') }}">Daftar Buku</a> --}}
 
                     {{-- @extends('buku.index') --}}
-                        
+
                 </div>
             </div>
         </div>

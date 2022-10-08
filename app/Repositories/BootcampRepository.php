@@ -2,17 +2,17 @@
 
 namespace App\Repositories;
 
-use App\Models\Bootcamp;
+use App\Models\Buku;
 
 class BootcampRepository
 {
     public function list()
     {
-        return Bootcamp::orderBy('id', 'desc')->get();
+        return Buku::orderBy('id', 'desc')->get();
     }
 
-    public function detail($bootcampID)
+    public function detail($bukuID)
     {
-        return Bootcamp::where('id', $bootcampID)->first();
+        return Buku::where('id', $bukuID)->first();
     }
 }

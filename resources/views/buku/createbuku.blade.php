@@ -10,7 +10,7 @@
               <h2>Add Buku</h2>
           </div>
           <div class="pull-right">
-              <a class="btn btn-primary" href="{{ route('buku.index') }}"> Back</a>
+              <a class="btn btn-primary" href="{{route('bukus')}}"> Back</a>
           </div>
       </div>
   </div>
@@ -19,7 +19,7 @@
       {{ session('status') }}
   </div>
   @endif
-  <form action="{{ route('buku.store') }}" method="POST" enctype="multipart/form-data">
+  <form action="/buku" method="POST" enctype="multipart/form-data">
       @csrf
       <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12">

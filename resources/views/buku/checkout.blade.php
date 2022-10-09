@@ -18,7 +18,7 @@
                     <div class="d-flex align-items-center align-items-md-start flex-row flex-md-column gap-md-4">
 
                         <img src="{{ asset('images/' . $buku->thumbnail) }}" class="thumbnail-course"
-                            alt="Intensive Bootcamp Web Development dengan Laravel" />
+                            alt="Intensive Bootcamp Web Development dengan Laravel" width="200px" height="200px"/>
 
                         <div class="course-detail">
                             <a href="#" class="course-name line-clamp">

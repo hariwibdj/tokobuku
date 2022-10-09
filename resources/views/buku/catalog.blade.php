@@ -13,27 +13,27 @@
             </div>
         </div>
         <div class="row gy-4">
-            @foreach ($bukus as $bk)
+            @foreach ($bukus as $buku)
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="course-card-responsive">
                         <div class="d-flex align-items-center align-items-md-start flex-row flex-md-column gap-md-4">
 
-                            <img src="{{ asset('images/' . $bk->thumbnail) }}" class="thumbnail-course"
-                                alt="Intensive Bootcamp Web Development dengan Laravel" />
+                            <img src="{{ asset('images/' . $buku->thumbnail) }}" class="thumbnail-course"
+                                alt="Intensive Bootcamp Web Development dengan Laravel" height="200px" width="200px" />
 
                             <div class="course-detail">
                                 <a href="" class="course-name line-clamp">
-                                    {{ $bk->judul }}
+                                    {{ $buku->judul }}
                                 </a>
                                 <div class="d-flex mt-2 align-items-center gap-1">
-                                    Rp <span class="">{{ number_format($bk->harga, 2, ',', '.') }}</span>
+                                    Rp <span class="">{{ number_format($buku->harga, 2, ',', '.') }}</span>
                                 </div>
                                 {{-- <a href="{{ route('checkout', $bk->id) }}" class="link-course stretched-link">
                                 </a> --}}
                             </div>
                         </div>
                         <div class="course-footer mt-auto">
-                            <a href="{{route('checkout',$bk->id)}}">
+                            <a href="{{route('checkout',$buku->id)}}">
                                 <button type="button" class="btn btn-primary">Checkout</button>
                             </a>
                         </div>

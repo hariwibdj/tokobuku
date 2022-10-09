@@ -53,7 +53,7 @@ class BukuController extends Controller
 
         Buku::create($input);
 
-        return redirect()->route('buku.index')
+        return redirect()->route('buku.listbuku')
             ->with('success', 'Buku created successfully.');
     }
 
@@ -110,7 +110,7 @@ class BukuController extends Controller
         // $buku->save();
         $buku->update($input);
 
-        return redirect()->route('buku.index')
+        return redirect()->route('buku.listbuku')
              ->with('success', 'Buku updated successfully');
     }
 
@@ -124,7 +124,7 @@ class BukuController extends Controller
     {
         $buku->delete();
 
-        return redirect()->route('buku.index')
+        return redirect()->route('buku.listbuku')
             ->with('success', 'Buku deleted successfully');
     }
 }

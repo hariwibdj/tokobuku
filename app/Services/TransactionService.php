@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\MemberTransaction;
 use App\Repositories\BootcampRepository;
 use App\Repositories\TransactionRepository;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +37,7 @@ class TransactionService
         }
 
         if ($memberStatus == MemberTransaction::PAYMENT_STATUS_ACCEPT) {
-            return to_route('buku')->with('danger', 'Kamu sudah membeli buku ini');
+            return to_route('bukus')->with('danger', 'Kamu sudah membeli buku ini');
         }
 
         // validate bootcamp
@@ -111,6 +112,7 @@ class TransactionService
             Log::info('transaction');
             Log::error($th);
             return to_route('bukus');
+            // return view('buku.catalog');
         }
     }
 

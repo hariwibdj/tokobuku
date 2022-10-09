@@ -30,13 +30,13 @@ Route::controller(HomeController::class)->prefix('buku')->group(function () {
     Route::get('/transaction/{bootcampTransactionID}', 'detail')->name('detail');
 });
 
+Route::get('/buku-tambah',[BukuController::class,'create'])->name('tambah');
+Route::get('/buku',[BukuController::class,'index']);
+Route::post('/buku',[BukuController::class,'store']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
-
-// Route::resource('/buku',BukuController::class);
-//Route::resource('/buku', [BukuController::class,'index']);
 
 
 Route::controller(XenditController::class)->group(function () {

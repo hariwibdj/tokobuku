@@ -44,7 +44,7 @@ class HomeController extends Controller
         $data = $this->bootcampService->detail(Auth::id(), $bukuID);
         if ($data['checkkout'] == true) {
 
-            return to_route('detail', $data['memberTransaction']->transaction_id);
+            return to_route('buku.detailbuku', $data['memberTransaction']->transaction_id);
         }
 
         // dd($data);
@@ -53,7 +53,6 @@ class HomeController extends Controller
 
     public function actCheckout(Request $request, $bukuID)
     {
-
         return $this->transactionService->create(Auth::user(), $bukuID, $request->all());
     }
 
@@ -62,7 +61,7 @@ class HomeController extends Controller
         $memberTransaction = $this->transactionService->detail(Auth::id(), $bootcampTransactionID);
 
         if (!$memberTransaction) {
-            return to_route('bukus');
+            return to_route('buku.catalog');
         }
         return view('buku.detailbuku', ['memberTransaction' => $memberTransaction]);
     }
